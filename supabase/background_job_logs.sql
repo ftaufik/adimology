@@ -17,3 +17,14 @@ CREATE TABLE IF NOT EXISTS background_job_logs (
 CREATE INDEX IF NOT EXISTS idx_background_job_logs_job_name ON background_job_logs(job_name);
 CREATE INDEX IF NOT EXISTS idx_background_job_logs_status ON background_job_logs(status);
 CREATE INDEX IF NOT EXISTS idx_background_job_logs_started_at ON background_job_logs(started_at DESC);
+
+-- Function to append a log entry to the log_entries JSONB array
+CREATE OR REPLACE FUNCTION append_job_log_entry(p_job_id INT, p_entry JSONB)
+RETURNS VOID AS $$
+BEGIN
+  UPDATE background_job_logs
+  SET log_entries = log_entries || p_entry
+  WHERE id = p_job_id;
+END;
+$$ LANGUAGE plpgsql;
+
