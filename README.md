@@ -71,7 +71,13 @@ Ikuti langkah-langkah berikut secara berurutan:
    - `anon public` key → untuk `NEXT_PUBLIC_SUPABASE_ANON_KEY`
    - `service_role` key → untuk `SUPABASE_SERVICE_ROLE_KEY`
 
-> **Note:** Migrasi database akan dijalankan otomatis saat build di Netlify. Anda tidak perlu menjalankan script SQL manual.
+> **PENTING: Persiapan Database (Wajib Sekali Saja)**
+> Agar migrasi otomatis dapat berjalan, Anda perlu menyiapkan infrastruktur pelacakan migrasi secara manual:
+> 1. Buka **SQL Editor** di Dashboard Supabase.
+> 2. Klik **New query**.
+> 3. Salin isi file `supabase/000_init.sql` dari repository ini dan tempel di editor.
+> 4. Klik **Run**.
+> 5. Setelah berhasil, migrasi database lainnya (`001_...` dst) akan dijalankan otomatis setiap kali build di Netlify.
 
 ## A2. Deploy ke Netlify
 
@@ -143,7 +149,13 @@ Ikuti langkah-langkah berikut secara berurutan:
    - `anon public` key → untuk `NEXT_PUBLIC_SUPABASE_ANON_KEY`
    - `service_role` key → untuk `SUPABASE_SERVICE_ROLE_KEY`
 
-> **Note:** Untuk testing lokal, Anda bisa menjalankan `npm run migrate` untuk menjalankan migrasi database.
+> **PENTING: Persiapan Database (Wajib Sekali Saja)**
+> Lakukan langkah yang sama seperti di **Opsi A (A1: Langkah 1-4)** dengan menjalankan `supabase/000_init.sql` di SQL Editor Supabase.
+> 
+> Setelah infrastruktur siap, Anda bisa menjalankan migrasi database lainnya secara otomatis dengan perintah:
+> ```bash
+> npm run migrate
+> ```
 
 ## B2. Clone & Install
 
